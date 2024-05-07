@@ -12,7 +12,7 @@ const config = {
   port: parseInt(process.env['PORT'] || '8000'),
   publicPath: path.join(rootPath, 'public'),
   mongoose: {
-    db: process.env['MONGO_DB_URL '] || 'mongodb://localhost/bereke-work',
+    db: process.env['MONGO_DB_URL '] || 'mongodb://localhost/pmuPetProject',
   },
   google: {
     clientId: process.env['GOOGLE_CLIENT_ID '],

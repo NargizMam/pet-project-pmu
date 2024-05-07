@@ -6,6 +6,7 @@ export interface UserFields {
   token: string;
   role: string;
   displayName?: string;
+  mobile: string;
   googleID?: string;
   avatar?: string;
 }
