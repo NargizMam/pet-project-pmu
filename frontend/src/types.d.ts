@@ -35,3 +35,68 @@ export interface ValidationError {
 export interface GlobalError {
   error: string
 }
+
+export interface PreviousProcedureApi {
+  _id: string;
+  type: string;
+  date: string;
+  notes: string;
+  photos: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ClientApi {
+  _id: string;
+  user: User;
+  fullName: string;
+  contact?: string;
+  birthday?: Date;
+  gender?: "male" | "female" | "other";
+  notes?: string;
+  referredBy?: string;
+  previousProcedures?: PreviousProcedureApi[];
+  photos?: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface MasterApi {
+  _id: string;
+  user: User;
+  fullName: string;
+  specialization: string;
+  phone: string;
+  backgroundInfo?: string;
+  experience?: number;
+  services?: Types.ObjectId[];
+  workingHours?: Map<string, string>;
+  profileImage?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ServiceApi {
+  _id: string;
+  title: string;
+  price: number;
+  description: string;
+  duration: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AppointmentApi {
+  _id: string;
+  master: Types.ObjectId;
+  client: Types.ObjectId;
+  date: Date;
+  time: string;
+  status?: "pending" | "confirmed" | "cancelled";
+  service: Types.ObjectId;
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+

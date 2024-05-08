@@ -4,7 +4,8 @@ import Container from '@mui/material/Container';
 import { Route, Routes } from 'react-router-dom';
 import Register from './features/users/Register.tsx';
 import Login from './features/users/Login.tsx';
-import MainPage from './features/MainPage.tsx';
+import MainPage from './features/MainPage/MainPage.tsx';
+import Footer from './components/Footer/Footer.tsx';
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
           <Route path="*" element={<h1>Not found</h1>}/>
         </Routes>
       </Container>
+      <footer>
+        <Footer/>
+      </footer>
     </>
   )
 }

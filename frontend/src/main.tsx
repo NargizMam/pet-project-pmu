@@ -9,6 +9,7 @@ import {PersistGate} from "redux-persist/integration/react";
 import {addInterceptors} from "./axiosApi.ts";
 import {GOOGLE_CLIENT_ID} from "./constants.ts";
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 addInterceptors(store);
 
