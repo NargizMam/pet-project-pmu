@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema<UserFields, UserModel, UserMethods>({
   role: {
     type: String,
     default: 'user',
-    enum: ['client', 'admin', 'master'],
+    enum: ['user', 'admin', 'master'],
   },
   displayName: {
     type: String,

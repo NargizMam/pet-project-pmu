@@ -11,11 +11,15 @@ const serviceSchema = new mongoose.Schema({
     },
     description: String,
     duration: {
-        type: Number,
+        type: String,
         required: true,
     },
+    master: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Master',
+    }]
 });
 
 const Service = mongoose.model('Service', serviceSchema);
 
-module.exports = Service;
+export default Service;

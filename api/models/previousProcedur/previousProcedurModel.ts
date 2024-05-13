@@ -7,4 +7,5 @@ const previousProcedureSchema = new mongoose.Schema({
     photos: [{ type: String}],
 });
 
-export default mongoose.model('PreviousProcedure', previousProcedureSchema);
+const PreviousProcedure =  mongoose.model('PreviousProcedure', previousProcedureSchema);
+export default PreviousProcedure;

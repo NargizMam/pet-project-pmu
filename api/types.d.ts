@@ -20,7 +20,7 @@ export interface UserMethods {
 export type UserModel = Model<UserFields, unknown, UserMethods>;
 
 
-export interface PreviousProcedure {
+export interface PreviousProcedureApi  {
   _id: string;
   type: string;
   date: Date;
@@ -29,8 +29,10 @@ export interface PreviousProcedure {
   createdAt: string;
   updatedAt: string;
 }
+export type PreviousProcedureMutation = Omit<PreviousProcedureApi , '_id'| 'createdAt' | 'updatedAt'>
 
-export interface Client {
+
+export interface ClientApi {
   _id: string;
   user: Types.ObjectId;
   fullName: string;
@@ -44,8 +46,10 @@ export interface Client {
   createdAt: string;
   updatedAt: string;
 }
+export type ClientMutation = Omit<ClientApi , '_id'| 'createdAt' | 'updatedAt'>
 
-export interface Master {
+
+export interface MasterApi  {
   _id: string;
   user: Types.ObjectId;
   fullName: string;
@@ -59,18 +63,22 @@ export interface Master {
   createdAt: string;
   updatedAt: string;
 }
+export type MasterMutation = Omit<MasterApi , '_id'| 'createdAt' | 'updatedAt'>
 
-export interface Service {
+
+export interface ServiceApi  {
   _id: string;
   title: string;
   price: number;
   description: string;
   duration: string;
+  master: Types.ObjectId[]
   createdAt: string;
   updatedAt: string;
 }
+export type ServiceMutation = Omit<ServiceApi , '_id'| 'createdAt' | 'updatedAt'>
 
-export interface Appointment {
+export interface AppointmentApi  {
   _id: string;
   master: Types.ObjectId;
   client: Types.ObjectId;
@@ -82,5 +90,7 @@ export interface Appointment {
   createdAt: string;
   updatedAt: string;
 }
+export type AppointmentMutation = Omit<AppointmentApi , '_id'| 'createdAt' | 'updatedAt'>
+
 
 

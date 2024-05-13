@@ -41,4 +41,4 @@ const masterSchema = new mongoose.Schema({
 
 const Master = mongoose.model('Master', masterSchema);
 
-module.exports = Master;
+export default Master;

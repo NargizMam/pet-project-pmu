@@ -28,7 +28,10 @@ const clientSchema = new mongoose.Schema({
     referredBy: {
         type: String,
     },
-    previousProcedures: [previousProcedureSchema],
+    previousProcedures: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'PreviousProcedure',
+    }],
     photos: [String],
 }, { timestamps: true });
 

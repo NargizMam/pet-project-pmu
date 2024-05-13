@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import config from './config';
 import userRouter from './routers/userRouter';
+import servicesRoute from "./routers/servicesRoute";
+import mastersRoute from "./routers/mastersRoute";
 
 const app = express();
 
@@ -11,6 +13,8 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/users', userRouter);
+app.use('/services', servicesRoute);
+app.use('/masters', mastersRoute);
 
 
 const run = async () => {
