@@ -173,7 +173,7 @@ const run = async () => {
         time: '10:00',
         status: 'confirmed',
         service: service1._id,
-        notes: 'Appointment notes',
+        notes: 'AppointmentReactSchedule notes',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
     });

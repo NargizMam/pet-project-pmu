@@ -20,7 +20,7 @@ masterRouter.get('/:id', async (req: Request, res: Response, next: NextFunction)
         if (!master) {
             return res.status(404).json({ message: 'Master not found' });
         }
-        res.json(master);
+        res.send(master);
     } catch (error) {
         next(error);
     }

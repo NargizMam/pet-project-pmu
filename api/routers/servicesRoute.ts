@@ -17,7 +17,6 @@ servicesRouter.get('/', client, async (req: RequestWithUser, res, next) => {
     }
 });
 servicesRouter.post('/', async (req: RequestWithUser, res, next) => {
-    const user = req.user;
     try {
         const { title, price, description, duration, master } = req.body;
 

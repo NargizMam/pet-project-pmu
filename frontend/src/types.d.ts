@@ -88,15 +88,37 @@ export interface ServiceApi {
 
 export interface AppointmentApi {
   _id: string;
-  master: Types.ObjectId;
-  client: Types.ObjectId;
+  master: string;
+  client: string;
   date: Date;
-  time: string;
+  start: string;
+  end: string;
+  service: {
+    id: string;
+    title: string;
+  }
+}
+export interface AppointmentApiFullInfo {
+  _id: string;
+  master: {
+    id: string;
+    name: string;
+  };
+  client: {
+    id: string;
+    name: string;
+    phone: string;
+  };
+  date: Date;
+  start: string;
+  end: string;
   status?: "pending" | "confirmed" | "cancelled";
-  service: Types.ObjectId;
+  service: {
+    id: string;
+    title: string;
+  }
   notes?: string;
   createdAt: string;
   updatedAt: string;
 }
-
 

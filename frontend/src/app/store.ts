@@ -5,6 +5,7 @@ import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist
 import persistStore from 'redux-persist/es/persistStore';
 import { usersReducer } from '../features/users/usersSlice.ts';
 import { warningMessageReducer } from '../features/WarningMessage/warningMessageSlice.ts';
+import { appointmentReducer } from '../features/Appointment/appointmentSlice.ts';
 
 const usersPersistConfig = {
   key: 'shop:users',
@@ -14,7 +15,8 @@ const usersPersistConfig = {
 };
 const rootReducer = combineReducers({
   warningMessage: warningMessageReducer,
-  users: persistReducer(usersPersistConfig, usersReducer)
+  users: persistReducer(usersPersistConfig, usersReducer),
+  appointments: appointmentReducer
 });
 export const store = configureStore({
   reducer: rootReducer,

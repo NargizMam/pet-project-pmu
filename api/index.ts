@@ -5,6 +5,7 @@ import config from './config';
 import userRouter from './routers/userRouter';
 import servicesRoute from "./routers/servicesRoute";
 import mastersRoute from "./routers/mastersRoute";
+import appointmentRouter from "./routers/appointmentsRoute";
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use('/users', userRouter);
 app.use('/services', servicesRoute);
 app.use('/masters', mastersRoute);
+app.use('/appointments', appointmentRouter);
 
 
 const run = async () => {

@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import previousProcedureSchema from "./../previousProcedur/previousProcedurModel";
 
 
 const clientSchema = new mongoose.Schema({
