@@ -6,6 +6,7 @@ import Service from "./models/service/servicesModel";
 import Master from "./models/master/masterModel";
 import Client from "./models/client/clientModel";
 import Appointment from "./models/appontment/appointmentModel";
+import Slot from './models/slot/slotModel';
 
 
 const dropCollection = async (db: mongoose.Connection, collectionName: string) => {
@@ -165,7 +166,23 @@ const run = async () => {
             master: master1._id,
 
         });
-
+    await Slot.create(
+      {
+        master: master1._id,
+        date: '2024-05-17',
+        availableSlots: ['09:00', '10:00', '11:00'],
+      },
+      {
+        master: master2._id,
+        date: '2024-05-18',
+        availableSlots: ['13:00', '14:00', '15:00'],
+      },
+      {
+        master: master1._id,
+        date: '2024-05-19',
+        availableSlots: ['10:00', '12:00', '14:00'],
+      },
+    )
     const appointment1 = await Appointment.create({
         master: master1._id,
         client: client1._id,

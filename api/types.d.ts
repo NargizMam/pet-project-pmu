@@ -78,6 +78,11 @@ export interface ServiceApi  {
 }
 export type ServiceMutation = Omit<ServiceApi , '_id'| 'createdAt' | 'updatedAt'>
 
+export interface SlotDocument extends Document {
+  master: Types.ObjectId;
+  date: string;
+  availableSlots: string[];
+}
 export interface AppointmentApi  {
   _id: string;
   master: Types.ObjectId;

@@ -1,13 +1,13 @@
-import mongoose from "mongoose";
+import mongoose, {Types} from "mongoose";
 
 const appointmentSchema = new mongoose.Schema({
     master: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'Master',
         required: true,
     },
     client: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'Client',
         required: true,
     },

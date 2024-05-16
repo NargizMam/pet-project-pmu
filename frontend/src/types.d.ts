@@ -98,6 +98,17 @@ export interface AppointmentApi {
     title: string;
   }
 }
+export interface AppointmentMutation {
+  master: string;
+  client: string;
+  date: Date;
+  start: string;
+  end: string;
+  service: {
+    id: string;
+    title: string;
+  }
+}
 export interface AppointmentApiFullInfo {
   _id: string;
   master: {
@@ -122,3 +133,8 @@ export interface AppointmentApiFullInfo {
   updatedAt: string;
 }
 
+export interface Slot {
+  master: string;
+  date: string;
+  availableSlots: string[];
+}

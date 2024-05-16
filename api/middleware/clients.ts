@@ -6,7 +6,7 @@ import User from "../models/users/userModel";
 export interface RequestWithUser extends Request {
   user?: HydratedDocument<UserFields>;
 }
-const client = async (req: RequestWithUser, _res: Response, next: NextFunction) => {
+const clients = async (req: RequestWithUser, _res: Response, next: NextFunction) => {
   const headerValue = req.get('Authorization');
   if (!headerValue) {
     return next();
@@ -22,4 +22,4 @@ const client = async (req: RequestWithUser, _res: Response, next: NextFunction) 
   req.user = user;
   next();
 };
-export default client;
+export default clients;

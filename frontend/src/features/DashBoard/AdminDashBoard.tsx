@@ -1,58 +1,58 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { AppointmentApi } from '../../types';
 
+const AdminPanel: React.FC = () => {
+  const [appointments, setAppointments] = useState<AppointmentApi[]>([]);
 
-const AdminDashboard = () => {
-const [appointments, setAppointments] = useState([]);
+  useEffect(() => {
+    axios.get('/api/appointments').then(response => {
+      setAppointments(response.data);
+    });
+  }, []);
 
-useEffect(() => {
-  // Получаем данные о записях с сервера с помощью API
-  fetchAppointments();
-}, []);
+  const handleStatusChange = (appointmentId: string, status: string) => {
+    axios.put(`/api/appointments/${appointmentId}`, { status }).then(response => {
+      setAppointments(prev =>
+        prev.map(app =>
+          app._id === appointmentId ? { ...app, status: response.data.status } : app
+        )
+      );
+    });
+  };
 
-
-
-const handleApprove = (appointmentId) => {
-  // Реализуйте функцию подтверждения записи
-  // Отправьте запрос на сервер для изменения статуса записи на "подтвержден"
-};
-
-const handleReject = (appointmentId) => {
-  // Реализуйте функцию отклонения записи
-  // Отправьте запрос на сервер для изменения статуса записи на "отклонен"
-};
-
-return (
-  <TableContainer component={Paper}>
-    <Table className={classes.table} aria-label="simple table">
-      <TableHead>
-        <TableRow>
-          <TableCell>Имя клиента</TableCell>
-          <TableCell>Дата и время</TableCell>
-          <TableCell>Мастер</TableCell>
-          <TableCell>Статус</TableCell>
-          <TableCell>Действия</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {appointments.map((appointment) => (
-          <TableRow key={appointment.id}>
-            <TableCell>{appointment.clientName}</TableCell>
-            <TableCell>{appointment.dateTime}</TableCell>
-            <TableCell>{appointment.masterName}</TableCell>
-            <TableCell>{appointment.status}</TableCell>
-            <TableCell>
-              {appointment.status === 'pending' && (
-                <>
-                  <Button variant="contained" color="primary" onClick={() => handleApprove(appointment.id)}>Подтвердить</Button>
-                  <Button variant="contained" color="secondary" onClick={() => handleReject(appointment.id)}>Отклонить</Button>
-                </>
-              )}
-            </TableCell>
-          </TableRow>
+  return (
+    <div>
+      <h1>Записи</h1>
+      <table>
+        <thead>
+        <tr>
+          <th>Мастер</th>
+          <th>Клиент</th>
+          <th>Дата</th>
+          <th>Время</th>
+          <th>Статус</th>
+          <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        {appointments.map(app => (
+          <tr key={app._id}>
+            <td>{app.master}</td>
+            <td>{app.client}</td>
+            <td>{app.date.toISOString()}</td>
+            <td>{app.time}</td>
+            <td>{app.status}</td>
+            <td>
+              <button onClick={() => handleStatusChange(app._id, 'confirmed')}>Подтвердить</button>
+              <button onClick={() => handleStatusChange(app._id, 'cancelled')}>Отменить</button>
+            </td>
+          </tr>
         ))}
-      </TableBody>
-    </Table>
-  </TableContainer>
-)};
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
-export default AdminDashboard;
+export default AdminPanel;

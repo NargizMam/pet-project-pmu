@@ -6,6 +6,7 @@ import Register from './features/users/Register.tsx';
 import Login from './features/users/Login.tsx';
 import MainPage from './features/MainPage/MainPage.tsx';
 import Footer from './components/Footer/Footer.tsx';
+import AppointmentInfo from './features/Appointment/component/AppointmentInfo.tsx';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Container sx={{ marginBottom: '150px'}}>
         <Routes>
           <Route path="/" element={<MainPage/>}/>
+          <Route path="/appointments/:id" element={<AppointmentInfo/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="*" element={<h1>Not found</h1>}/>

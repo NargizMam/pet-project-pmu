@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../../axiosApi.ts';
-import { AppointmentApi, AppointmentApiFullInfo, GlobalError } from '../../types';
+import { AppointmentApi, AppointmentApiFullInfo, AppointmentMutation, GlobalError } from '../../types';
 import { isAxiosError } from 'axios';
 
 export const fetchAppointments = createAsyncThunk<AppointmentApi[], undefined, { rejectValue: GlobalError }>(
@@ -34,7 +34,7 @@ export const fetchOneAppointmentInfo = createAsyncThunk<AppointmentApiFullInfo, 
   }
 );
 
-export const createAppointment = createAsyncThunk<string, AppointmentApi, { rejectValue: GlobalError }>(
+export const createAppointment = createAsyncThunk<string, AppointmentMutation, { rejectValue: GlobalError }>(
   'appointments/addAppointment',
   async (appointmentData, {rejectWithValue}) => {
     try{

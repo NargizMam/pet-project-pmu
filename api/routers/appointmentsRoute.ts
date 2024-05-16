@@ -25,13 +25,25 @@ appointmentRouter.get('/', async (_req, res, next) => {
     next(error);
     }
 });
+appointmentRouter.get('/:id', async (req, res, next) => {
+    const id = req.params.id;
+    try {
+        const appointment = await Appointment.findById(id)
+            // .populate('client', 'fullName')
+            .populate('service', 'title')
+            .populate('master', 'fullName');
+
+        res.send(appointment);
+    } catch (error) {
+        next(error);
+    }
+});
 appointmentRouter.post('/', async (req, res, next) => {
     const appointment = new Appointment({
         master: req.body.master,
         client: req.body.client,
         date: req.body.date,
         time: req.body.time,
-        status: req.body.status,
         service: req.body.service,
         notes: req.body.notes
     });

@@ -2,7 +2,7 @@ import express from 'express';
 import auth, {RequestWithUser} from '../middleware/auth';
 import permit from '../middleware/permit';
 import {ServiceApi, ServiceMutation} from '../types';
-import client from "../middleware/client";
+import client from "../middleware/clients";
 import Service from "../models/service/servicesModel";
 
 const servicesRouter = express.Router();
@@ -10,7 +10,7 @@ const servicesRouter = express.Router();
 servicesRouter.get('/', client, async (req: RequestWithUser, res, next) => {
     let servicesList: ServiceApi[] = [];
     try {
-        servicesList = await Service.find().populate('masters', 'fullName');
+        servicesList = await Service.find().populate('master', 'fullName');
         return res.send(servicesList);
     } catch (e) {
         next(e);

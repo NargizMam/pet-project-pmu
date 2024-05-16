@@ -16,6 +16,7 @@ app.use(cors());
 app.use('/users', userRouter);
 app.use('/services', servicesRoute);
 app.use('/masters', mastersRoute);
+app.use('/clients', mastersRoute);
 app.use('/appointments', appointmentRouter);
 
 
