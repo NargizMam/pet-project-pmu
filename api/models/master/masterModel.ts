@@ -1,8 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Types } from 'mongoose';
+import { MasterDocument } from '../../types';
 
-const masterSchema = new mongoose.Schema({
+const masterSchema: Schema<MasterDocument> = new mongoose.Schema({
     user: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'User',
         required: true,
     },
@@ -26,7 +27,7 @@ const masterSchema = new mongoose.Schema({
         default: 0,
     },
     services: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'Service',
     }],
     workingHours: {
@@ -39,6 +40,6 @@ const masterSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-const Master = mongoose.model('Master', masterSchema);
+const Master = mongoose.model<MasterDocument>('Master', masterSchema);
 
 export default Master;

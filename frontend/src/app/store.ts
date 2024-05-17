@@ -3,13 +3,14 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
 import persistStore from 'redux-persist/es/persistStore';
-import { usersReducer } from '../features/users/usersSlice.ts';
+import { usersReducer } from '../features/Users/usersSlice.ts';
 import { warningMessageReducer } from '../features/WarningMessage/warningMessageSlice.ts';
 import { appointmentReducer } from '../features/Appointment/appointmentSlice.ts';
 import { mastersReducer } from '../features/Masters/mastersSlice.ts';
+import { slotsReducer } from '../features/BookCalendar/slotsSlice.ts';
 
 const usersPersistConfig = {
-  key: 'shop:users',
+  key: 'shop:Users',
   storage: storage,
   whitelist: ['user'],
 
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   warningMessage: warningMessageReducer,
   users: persistReducer(usersPersistConfig, usersReducer),
   appointments: appointmentReducer,
-  masters: mastersReducer
+  masters: mastersReducer,
+  slots: slotsReducer,
 });
 export const store = configureStore({
   reducer: rootReducer,

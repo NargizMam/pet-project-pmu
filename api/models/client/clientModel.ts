@@ -1,7 +1,7 @@
-import mongoose, { model } from 'mongoose';
-import { ClientApi } from '../../types';
+import mongoose, { Schema, model } from 'mongoose';
+import { ClientDocument } from '../../types';
 
-const clientSchema = new mongoose.Schema<ClientApi>({
+const clientSchema: Schema<ClientDocument> = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -34,5 +34,5 @@ const clientSchema = new mongoose.Schema<ClientApi>({
     photos: [String],
 }, { timestamps: true });
 
-const Client = model<ClientApi>('Client', clientSchema);
+const Client = model<ClientDocument>('Client', clientSchema);
 export default Client;

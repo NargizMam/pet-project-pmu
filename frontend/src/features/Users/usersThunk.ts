@@ -6,7 +6,7 @@ import { RootState } from '../../app/store.ts';
 import { logOutUser } from './usersSlice.ts';
 
 export const registerUser = createAsyncThunk<RegisterResponse, RegisterMutation, { rejectValue: ValidationError }>(
-  'users/register',
+  'Users/register',
   async (registerMutation, {rejectWithValue}) => {
     try {
       const formData = new FormData();
@@ -27,7 +27,7 @@ export const registerUser = createAsyncThunk<RegisterResponse, RegisterMutation,
   }
 );
 export const loginUser = createAsyncThunk<RegisterResponse, LoginMutation, { rejectValue: GlobalError }>(
-  'users/login',
+  'Users/login',
   async (loginMutation, {rejectWithValue}) => {
     try {
       const response = await axiosApi.post<RegisterResponse>('/users/sessions', loginMutation);
@@ -41,7 +41,7 @@ export const loginUser = createAsyncThunk<RegisterResponse, LoginMutation, { rej
   }
 );
 export const googleRegister = createAsyncThunk<RegisterResponse, string, { rejectValue: ValidationError }>(
-  'users/googleRegister',
+  'Users/googleRegister',
   async (credential, {rejectWithValue}) => {
     try {
       const response = await axiosApi.post('/users/google', {credential});
@@ -55,7 +55,7 @@ export const googleRegister = createAsyncThunk<RegisterResponse, string, { rejec
   },
 );
 export const googleLogin = createAsyncThunk<RegisterResponse, string, { rejectValue: GlobalError }>(
-  'users/googleLogin',
+  'Users/googleLogin',
   async (credential, {rejectWithValue}) => {
     try {
       const response = await axiosApi.post('/users/sessions/google', {credential});
@@ -69,7 +69,7 @@ export const googleLogin = createAsyncThunk<RegisterResponse, string, { rejectVa
   },
 );
 export const logout = createAsyncThunk<void, undefined, { state: RootState }>(
-  'users/logout',
+  'Users/logout',
   async (_, {getState, dispatch}) => {
     const token = getState().users.user?.token;
     await axiosApi.delete('/users/sessions', {headers: {'Authorization': 'Bearer' + token}});

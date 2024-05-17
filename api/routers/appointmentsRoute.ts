@@ -1,52 +1,41 @@
-import Appointment from "../models/appontment/appointmentModel";
-import express, {Request, Response, NextFunction} from "express";
+import express, { Request, Response, NextFunction } from 'express';
+import Appointment from '../models/appontment/appointmentModel';
 
 const appointmentRouter = express.Router();
 
-async function getAppointment(req:Request, res: Response, next: NextFunction) {
-    let appointment;
+appointmentRouter.get('/', async (_req: Request, res: Response, next: NextFunction) => {
     try {
-        appointment = await Appointment.findById(req.params.id);
-        if (appointment == null) {
-            return res.send(404).json({message: 'AppointmentReactSchedule not found'});
-        }
-    }catch (error) {
-        next(error);
-    }
-    res.send(appointment);
-    next();
-}
-
-appointmentRouter.get('/', async (_req, res, next) => {
-    try {
-        const appointments = await Appointment.find().populate('service', 'title');
+        const appointments = await Appointment.find()
+          .populate('service', 'title')
+          .populate('master', 'fullName')
+          .populate('client', 'fullName');
         res.send(appointments);
     } catch (error) {
-    next(error);
+        next(error);
     }
 });
-appointmentRouter.get('/:id', async (req, res, next) => {
-    const id = req.params.id;
+
+appointmentRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const appointment = await Appointment.findById(id)
-            // .populate('client', 'fullName')
-            .populate('service', 'title')
-            .populate('master', 'fullName');
+        const appointment = await Appointment.findById(req.params.id)
+          .populate('service', 'title')
+          .populate('master', 'fullName')
+          .populate('client', 'fullName');
+
+        if (!appointment) {
+            return res.status(404).json({ message: 'Appointment not found' });
+        }
 
         res.send(appointment);
     } catch (error) {
         next(error);
     }
 });
-appointmentRouter.post('/', async (req, res, next) => {
-    const appointment = new Appointment({
-        master: req.body.master,
-        client: req.body.client,
-        date: req.body.date,
-        time: req.body.time,
-        service: req.body.service,
-        notes: req.body.notes
-    });
+
+appointmentRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
+    const { master, client, date, time, service, notes } = req.body;
+    const appointment = new Appointment({ master, client, date, time, service, notes });
+
     try {
         const newAppointment = await appointment.save();
         res.status(201).json(newAppointment);
@@ -54,40 +43,41 @@ appointmentRouter.post('/', async (req, res, next) => {
         next(error);
     }
 });
-appointmentRouter.put('/:id', getAppointment, async (req, res, next) => {
-    const appointmentId = req.params.id;
 
+appointmentRouter.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const appointment = await Appointment.findById(appointmentId);
+        const { master, client, date, time, status, service, notes } = req.body;
+
+        const appointment = await Appointment.findById(req.params.id);
         if (!appointment) {
-            return res.status(404).json({ message: "AppointmentReactSchedule not found" });
+            return res.status(404).json({ message: 'Appointment not found' });
         }
 
-        appointment.master = req.body.master || appointment.master;
-        appointment.client = req.body.client || appointment.client;
-        appointment.date = req.body.date || appointment.date;
-        appointment.time = req.body.time || appointment.time;
-        appointment.status = req.body.status || appointment.status;
-        appointment.service = req.body.service || appointment.service;
-        appointment.notes = req.body.notes || appointment.notes;
+        if (master) appointment.master = master;
+        if (client) appointment.client = client;
+        if (date) appointment.date = date;
+        if (time) appointment.time = time;
+        if (status) appointment.status = status;
+        if (service) appointment.service = service;
+        if (notes) appointment.notes = notes;
 
         const updatedAppointment = await appointment.save();
-
         res.json(updatedAppointment);
     } catch (error) {
         next(error);
     }
 });
 
-appointmentRouter.delete('/:id', getAppointment, async (req, res, next) => {
+appointmentRouter.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const appointment = await Appointment.findByIdAndDelete(req.params.id);
         if (!appointment) {
-            return res.status(404).json({ message: 'AppointmentReactSchedule not found' });
+            return res.status(404).json({ message: 'Appointment not found' });
         }
-        res.json({ message: 'AppointmentReactSchedule deleted successfully' });
+        res.json({ message: 'Appointment deleted successfully' });
     } catch (error) {
         next(error);
     }
 });
+
 export default appointmentRouter;

@@ -19,6 +19,52 @@ export interface UserMethods {
 
 export type UserModel = Model<UserFields, unknown, UserMethods>;
 
+export interface ServiceFields {
+  title: string;
+  price: number;
+  description?: string;
+  duration: string;
+  master: Types.ObjectId[];
+}
+
+export interface ServiceDocument extends Document, ServiceFields {}
+
+export interface PreviousProcedureFields {
+  type?: string;
+  date?: Date;
+  notes?: string;
+  photos?: string[];
+}
+
+export interface PreviousProcedureDocument extends Document, PreviousProcedureFields {}
+
+export interface ClientFields {
+  user: Types.ObjectId;
+  fullName: string;
+  contact?: string;
+  birthday?: Date;
+  gender?: 'male' | 'female' | 'other';
+  notes?: string;
+  referredBy?: string;
+  previousProcedures?: Types.ObjectId[];
+  photos?: string[];
+}
+
+export interface ClientDocument extends Document, ClientFields {}
+
+export interface MasterFields {
+  user: Types.ObjectId;
+  fullName: string;
+  specialization: string;
+  phone: string;
+  backgroundInfo?: string;
+  experience?: number;
+  services?: Types.ObjectId[];
+  workingHours?: Map<string, string>;
+  profileImage?: string;
+}
+
+export interface MasterDocument extends Document, MasterFields {}
 
 export interface PreviousProcedureApi  {
   _id: string;

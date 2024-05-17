@@ -1,9 +1,9 @@
-import express, { Request, Response } from 'express';
-import Client from "../models/client/clientModel";
+import express, { Request, Response, NextFunction } from 'express';
+import Client from '../models/client/clientModel';
 
 const clientsRouter = express.Router();
 
-clientsRouter.get('/', async (req: Request, res: Response, next) => {
+clientsRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const clients = await Client.find();
         res.json(clients);
@@ -12,7 +12,7 @@ clientsRouter.get('/', async (req: Request, res: Response, next) => {
     }
 });
 
-clientsRouter.get('/:id', async (req: Request, res: Response, next) => {
+clientsRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const client = await Client.findById(req.params.id);
         if (!client) {
@@ -24,18 +24,21 @@ clientsRouter.get('/:id', async (req: Request, res: Response, next) => {
     }
 });
 
-clientsRouter.post('/', async (req: Request, res: Response, next) => {
+clientsRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
+    const { fullName, user, contact, birthday, gender, notes, referredBy, previousProcedures, photos } = req.body;
+
     const client = new Client({
-        fullName: req.body.fullName,
-        user: req.body.user,
-        contact: req.body.contact,
-        birthday: req.body.birthday,
-        gender: req.body.gender,
-        notes: req.body.notes,
-        referredBy: req.body.referredBy,
-        previousProcedures: req.body.previousProcedures,
-        photos: req.body.photos
+        fullName,
+        user,
+        contact,
+        birthday,
+        gender,
+        notes,
+        referredBy,
+        previousProcedures,
+        photos,
     });
+
     try {
         const newClient = await client.save();
         res.status(201).json(newClient);
@@ -44,20 +47,19 @@ clientsRouter.post('/', async (req: Request, res: Response, next) => {
     }
 });
 
-clientsRouter.put('/:id', async (req: Request, res: Response, next) => {
+clientsRouter.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const client = await Client.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!client) {
+        const updatedClient = await Client.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        if (!updatedClient) {
             return res.status(404).json({ message: 'Client not found' });
         }
-        res.json(client);
+        res.json(updatedClient);
     } catch (e) {
         next(e);
     }
 });
 
-// DELETE: Удалить клиента
-clientsRouter.delete('/:id', async (req: Request, res: Response, next) => {
+clientsRouter.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const client = await Client.findByIdAndDelete(req.params.id);
         if (!client) {
@@ -70,4 +72,3 @@ clientsRouter.delete('/:id', async (req: Request, res: Response, next) => {
 });
 
 export default clientsRouter;
-

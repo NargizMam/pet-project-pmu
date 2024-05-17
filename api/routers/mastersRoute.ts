@@ -1,7 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
-import Master from "../models/master/masterModel";
-import mongoose from "mongoose";
-
+import mongoose from 'mongoose';
+import Master from '../models/master/masterModel';
 
 const masterRouter = express.Router();
 
@@ -30,26 +29,43 @@ masterRouter.post('/', async (req: Request, res: Response, next: NextFunction) =
     try {
         const { services, ...masterData } = req.body;
 
-        const master = await Master.create({
+        const master = new Master({
             ...masterData,
-            services: services.map((serviceId: string) => new mongoose.Types.ObjectId(serviceId)),
+            services: services ? services.map((serviceId: string) => new mongoose.Types.ObjectId(serviceId)) : [],
         });
 
+        await master.save();
         res.status(201).json(master);
     } catch (error) {
+        if (error instanceof mongoose.Error.ValidationError) {
+            return res.status(422).json(error.errors);
+        }
         next(error);
     }
 });
 
-
 masterRouter.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const master = await Master.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!master) {
+        const { services, ...masterData } = req.body;
+
+        const updatedMaster = await Master.findByIdAndUpdate(
+          req.params.id,
+          {
+              ...masterData,
+              services: services ? services.map((serviceId: string) => new mongoose.Types.ObjectId(serviceId)) : [],
+          },
+          { new: true, runValidators: true }
+        );
+
+        if (!updatedMaster) {
             return res.status(404).json({ message: 'Master not found' });
         }
-        res.json(master);
+
+        res.json(updatedMaster);
     } catch (error) {
+        if (error instanceof mongoose.Error.ValidationError) {
+            return res.status(422).json(error.errors);
+        }
         next(error);
     }
 });

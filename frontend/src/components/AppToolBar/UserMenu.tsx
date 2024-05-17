@@ -2,8 +2,8 @@ import React from 'react';
 import { Button } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { logout } from '../../features/users/usersThunk.ts';
-import { selectUser } from '../../features/users/usersSlice.ts';
+import { logout } from '../../features/Users/usersThunk.ts';
+import { selectUser } from '../../features/Users/usersSlice.ts';
 import './AppToolbar.css';
 
 const UserMenu = () => {

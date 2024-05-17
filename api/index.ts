@@ -6,6 +6,7 @@ import userRouter from './routers/userRouter';
 import servicesRoute from "./routers/servicesRoute";
 import mastersRoute from "./routers/mastersRoute";
 import appointmentRouter from "./routers/appointmentsRoute";
+import slotsRoute from './routers/slotsRoute';
 
 const app = express();
 
@@ -13,10 +14,11 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(cors());
 
-app.use('/users', userRouter);
+app.use('/Users', userRouter);
 app.use('/services', servicesRoute);
 app.use('/masters', mastersRoute);
 app.use('/clients', mastersRoute);
+app.use('/slots', slotsRoute);
 app.use('/appointments', appointmentRouter);
 
 

@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Types } from 'mongoose';
+import { ServiceDocument } from '../../types';
 
-const serviceSchema = new mongoose.Schema({
+const serviceSchema: Schema = new Schema({
     title: {
         type: String,
         required: true,
@@ -9,17 +10,19 @@ const serviceSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    description: String,
+    description: {
+        type: String,
+    },
     duration: {
         type: String,
         required: true,
     },
     master: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'Master',
     }]
 });
 
-const Service = mongoose.model('Service', serviceSchema);
+const Service = mongoose.model<ServiceDocument>('Service', serviceSchema);
 
 export default Service;

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Button, Grid, TextField } from '@mui/material';
-import './../../../features/users/Register.css';
+import '../../../features/Users/Register.css';
 interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;

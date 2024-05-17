@@ -101,13 +101,11 @@ export interface AppointmentApi {
 export interface AppointmentMutation {
   master: string;
   client: string;
-  date: Date;
+  date: string;
   start: string;
   end: string;
-  service: {
-    id: string;
-    title: string;
-  }
+  service: string;
+  notes?: string;
 }
 export interface AppointmentApiFullInfo {
   _id: string;
